@@ -1,7 +1,17 @@
 import Head from 'next/head'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { useForm } from 'react-hook-form'
+
+import { useAuth } from '../hooks/AuthContext'
 
 export default function Home() {
+  const { signIn } = useAuth()
+  const { register, handleSubmit } = useForm()
+
+  const handleSignIn = async (data) => {
+    await signIn({ email: data.email, password: data.password })
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Head>
@@ -17,7 +27,7 @@ export default function Home() {
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
         </div>
-        <form className="mt-8 space-y-6">
+        <form className="mt-8 space-y-6" onSubmit={ handleSubmit(handleSignIn) }>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -32,6 +42,7 @@ export default function Home() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
+                { ...register('email') }
               />
             </div>
             <div>
@@ -46,6 +57,7 @@ export default function Home() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
+                { ...register('password') }
               />
             </div>
           </div>
