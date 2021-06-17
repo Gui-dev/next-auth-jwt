@@ -3,6 +3,7 @@ import { setCookie, parseCookies } from 'nookies'
 import Router from 'next/router'
 
 import { recoverUserInformation, signInRequest } from '../services/auth'
+import { api } from '../services/api'
 
 interface AuthContextProps {
   isAuthenticated: boolean
@@ -36,12 +37,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }, [])
 
-  const signIn = async ({ email, password }: ISignInData) => {
+  const signIn = async ({ email, password }: ISignInData): Promise<void> => {
     const { user, token } = await signInRequest({ email, password })
 
     setCookie(undefined, '@nextauth:token', token, {
       maxAge: 60 * 60 * 1 // 1 hour
     })
+
+    api.defaults.headers.Authorization = `Bearer ${token}`
+
     setUser(user)
 
     Router.push('/dashboard')
