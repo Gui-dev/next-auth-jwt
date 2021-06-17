@@ -4,9 +4,9 @@ Authentication to NextJS with JWT
 
 # Screens
 
-<img src="./screens/home.png" width="80%" height="600" />
+<img src="./screens/home.png" width="100%" height="700" />
 &nbsp; &nbsp; &nbsp; &nbsp;
-<img src="./screens/dashboard.png" width="80%" height="600" />
+<img src="./screens/dashboard.png" width="100%" height="700" />
 
 ## Technologies used
   - [NextJS](https://nextjs.org)
