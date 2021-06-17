@@ -1,10 +1,13 @@
-import '../styles/globals.css'
+// import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 
+import { AuthProvider } from './../hooks/AuthContext'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Component {...pageProps} />
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   )
 }
 
